@@ -1,8 +1,0 @@
-CREATE TABLE IF NOT EXISTS dataset (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    description TEXT,
-    source TEXT,
-    payload TEXT NOT NULL,
-    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
