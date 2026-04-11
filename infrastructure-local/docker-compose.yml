@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  frontend-web:
+    build: ../frontend-web
+    ports:
+      - "3000:3000"
+    depends_on:
+      - bff-gateway
+    networks:
+      - proyecto-territorial
+
+  bff-gateway:
+    build: ../bff-gateway
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ms-ingestion
+      - ms-transformation
+      - ms-analytics-scoring
+      - ms-ml
+      - ms-recommendations
+      - ms-configuration
+      - ms-audit-trace
+    networks:
+      - proyecto-territorial
+
+  ms-ingestion:
+    build: ../ms-ingestion
+    ports:
+      - "8001:8000"
+    networks:
+      - proyecto-territorial
+
+  ms-transformation:
+    build: ../ms-transformation
+    ports:
+      - "8002:8000"
+    networks:
+      - proyecto-territorial
+
+  ms-analytics-scoring:
+    build: ../ms-analytics-scoring
+    ports:
+      - "8003:8000"
+    networks:
+      - proyecto-territorial
+
+  ms-ml:
+    build: ../ms-ml
+    ports:
+      - "8004:8000"
+    networks:
+      - proyecto-territorial
+
+  ms-recommendations:
+    build: ../ms-recommendations
+    ports:
+      - "8005:8000"
+    networks:
+      - proyecto-territorial
+
+  ms-configuration:
+    build: ../ms-configuration
+    ports:
+      - "8006:8000"
+    networks:
+      - proyecto-territorial
+
+  ms-audit-trace:
+    build: ../ms-audit-trace
+    ports:
+      - "8007:8000"
+    networks:
+      - proyecto-territorial
+
+networks:
+  proyecto-territorial:
+    driver: bridge
