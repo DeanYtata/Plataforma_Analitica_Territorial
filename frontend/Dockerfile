@@ -1,0 +1,23 @@
+FROM nginx:alpine
+
+# Copy application files
+COPY index.html /usr/share/nginx/html/
+
+# Copy nginx configuration
+RUN echo 'server { \
+    listen 80; \
+    server_name _; \
+    root /usr/share/nginx/html; \
+    index index.html; \
+    location / { \
+        try_files $uri $uri/ /index.html; \
+    } \
+    location /api/ { \
+        proxy_pass http://backend:5000; \
+    } \
+}' > /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
