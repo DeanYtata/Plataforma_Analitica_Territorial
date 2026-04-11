@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos Procesados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        .datos-limpios th {
+            background-color: #4CAF50;
+        }
+        .datos-eliminados th {
+            background-color: #f44336;
+        }
+        .no-data {
+            text-align: center;
+            padding: 16px;
+            background-color: #f0f0f0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>✅ Resultados del Procesamiento ETL</h1>
+
+    <!-- BOTÓN PARA DESCARGAR CSV LIMPIO -->
+    {% if datasets %}
+    <div style="text-align: center; margin: 20px 0;">
+        <a href="/download-csv" style="background-color: #4CAF50; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block;">
+            📥 Descargar Datos Limpios (CSV)
+        </a>
+    </div>
+    {% endif %}
+
+    <!-- TABLA DE DATOS LIMPIOS -->
+    <h2>📊 Datos Limpios (GUARDADOS)</h2>
+    <table class="datos-limpios">
+        <tr>
+            <th>ID</th>
+            <th>Ciudad</th>
+            <th>Ingresos</th>
+            <th>Población</th>
+        </tr>
+        {% if datasets %}
+            {% for dataset in datasets %}
+            <tr>
+                <td>{{ dataset.id }}</td>
+                <td>{{ dataset.ciudad }}</td>
+                <td>${{ "%.2f"|format(dataset.ingresos) }}</td>
+                <td>{{ dataset.poblacion }}</td>
+            </tr>
+            {% endfor %}
+            <tr style="background-color: #e8f5e9; font-weight: bold;">
+                <td colspan="4" style="text-align: center;">Total registros limpios: {{ datasets|length }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" class="no-data">No hay datos cargados aún.</td>
+            </tr>
+        {% endif %}
+    </table>
+
+    <!-- TABLA DE DATOS ELIMINADOS -->
+    <h2>⚠️ Datos Eliminados (POR QUÉ SE DESCARTARON)</h2>
+    <table class="datos-eliminados">
+        <tr>
+            <th>Ciudad</th>
+            <th>Ingresos</th>
+            <th>Población</th>
+            <th>Razón de Eliminación</th>
+        </tr>
+        {% if eliminated %}
+            {% for item in eliminated %}
+            <tr>
+                <td>{{ item.ciudad }}</td>
+                <td>{{ item.ingresos }}</td>
+                <td>{{ item.poblacion }}</td>
+                <td><strong>{{ item.razon_eliminacion }}</strong></td>
+            </tr>
+            {% endfor %}
+            <tr style="background-color: #ffebee; font-weight: bold;">
+                <td colspan="4" style="text-align: center;">Total registros eliminados: {{ eliminated|length }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" class="no-data">No hay datos eliminados. ✨ Todos los registros fueron válidos.</td>
+            </tr>
+        {% endif %}
+    </table>
+
+    <hr>
+    <p style="color: #666; font-size: 12px;">
+        <strong>Resumen ETL:</strong> Total procesado = Limpios ({{ datasets|length }}) + Eliminados ({{ eliminated|length }})
+    </p>
+</body>
+</html>
