@@ -8,8 +8,8 @@ async def get_data():
     # Example: Aggregate data from ms-ingestion and ms-analytics
     async with httpx.AsyncClient() as client:
         try:
-            ingestion_response = await client.get("http://localhost:8001/ingestion/")
-            analytics_response = await client.get("http://localhost:8003/analytics/score")
+            ingestion_response = await client.get("http://ms-ingestion:8000/ingestion/")
+            analytics_response = await client.get("http://ms-analytics-scoring:8000/analytics/score")
             return {
                 "ingestion": ingestion_response.json(),
                 "analytics": analytics_response.json()

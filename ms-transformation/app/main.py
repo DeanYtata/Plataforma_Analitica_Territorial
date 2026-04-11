@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .routers.transformation_router import router as transformation_router
+from routers.transformation_router import router as transformation_router
 
 app = FastAPI(title="MS Transformation", version="1.0.0")
 

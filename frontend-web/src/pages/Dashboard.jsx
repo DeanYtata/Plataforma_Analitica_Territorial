@@ -5,7 +5,7 @@ function Dashboard() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    axios.get('/api/data') // Assuming BFF endpoint
+    axios.get('/data') // Assuming BFF endpoint
       .then(response => setData(response.data))
       .catch(error => console.error(error));
   }, []);

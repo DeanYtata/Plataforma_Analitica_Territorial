@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .routers.audit_router import router as audit_router
+from routers.audit_router import router as audit_router
 
 app = FastAPI(title="MS Audit Trace", version="1.0.0")
 

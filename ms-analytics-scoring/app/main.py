@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .routers.analytics_router import router as analytics_router
+from routers.analytics_router import router as analytics_router
 
 app = FastAPI(title="MS Analytics Scoring", version="1.0.0")
 

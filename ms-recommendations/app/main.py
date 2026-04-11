@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .routers.recommendations_router import router as recommendations_router
+from routers.recommendations_router import router as recommendations_router
 
 app = FastAPI(title="MS Recommendations", version="1.0.0")
 

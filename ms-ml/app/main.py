@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .routers.ml_router import router as ml_router
+from routers.ml_router import router as ml_router
 
 app = FastAPI(title="MS ML", version="1.0.0")
 

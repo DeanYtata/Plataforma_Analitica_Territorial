@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .routers.ingestion_router import router as ingestion_router
+from routers.ingestion_router import router as ingestion_router
 
 app = FastAPI(title="MS Ingestion", version="1.0.0")
 

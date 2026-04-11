@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .routers.config_router import router as config_router
+from routers.config_router import router as config_router
 
 app = FastAPI(title="MS Configuration", version="1.0.0")
 
